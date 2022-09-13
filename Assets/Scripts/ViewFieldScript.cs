@@ -8,7 +8,7 @@ public class ViewFieldScript : MonoBehaviour
     void OnTriggerStay2D(Collider2D other) 
     {
         if (other.TryGetComponent<Attack>(out Attack attack))
-            Logic.DetectedPlayerTrue();
+            Logic.DetectedPlayerTrue(other.gameObject);
     }
 
     void OnTriggerExit2D(Collider2D other) 

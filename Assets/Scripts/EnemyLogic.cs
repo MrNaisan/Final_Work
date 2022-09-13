@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class EnemyLogic : MonoBehaviour
 {
-    private int rand;
     public GameObject Enemy;
-    private GameObject Player;
+    private GameObject player;
     private bool isDeteced;
     public float Speed;
     
-    private void Start() 
-    {
-        Player = GameObject.FindGameObjectWithTag("player");
-    }
     private void Update() 
     {
         Move();
@@ -28,11 +23,12 @@ public class EnemyLogic : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, Player.transform.position, Time.deltaTime * Speed);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, Time.deltaTime * Speed);
     }
     
-    public void DetectedPlayerTrue()
+    public void DetectedPlayerTrue(GameObject player)
     {
+        this.player = player;
         isDeteced = true;
     }
     public void DetectedPlayerFalse()

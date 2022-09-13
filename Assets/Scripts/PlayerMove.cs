@@ -6,12 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     public GameObject Player;
     public float Speed = 1f;
-    private SpriteRenderer sprite;
 
-    private void Start()  
-    {
-        sprite = Player.GetComponent<SpriteRenderer>();
-    }
     private void Update()   
     {
         if(Input.GetKey(KeyCode.W))
@@ -25,22 +20,17 @@ public class PlayerMove : MonoBehaviour
         if(Input.GetKey(KeyCode.A))
         {
             Move(new Vector3(-1, 0, 0));
-            SpriteSwap(true);
+            
         }
         if(Input.GetKey(KeyCode.D))
         {
             Move(new Vector3(1, 0, 0));
-            SpriteSwap(false);
+            
         }
     }
 
     private void Move(Vector3 Vector3)
     {
         Player.transform.Translate(Vector3 * Speed * Time.deltaTime);
-    }
-
-    private void SpriteSwap(bool swap)
-    {
-        sprite.flipX = swap;
     }
 }
