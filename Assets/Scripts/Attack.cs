@@ -6,10 +6,11 @@ public class Attack : MonoBehaviour
 {
     public int Damage;
     private bool isAttack;
+    public int Damage1;
     
     private void Start() 
     {
-        Damage = Player.Attack;
+        
     }
     private void Update() 
     {
@@ -32,7 +33,7 @@ public class Attack : MonoBehaviour
     {
         if(isAttack)
         {
-            Player.AttackType = 1;
+            
         }
     }
 
@@ -56,14 +57,15 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.gameObject.tag == "enemy")
+        if(other.TryGetComponent<Enemy>(out Enemy enemy))
         {
+            Damage1 = enemy.UpBlock() - (Damage/10);
             isAttack = true;
         }
     }
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.gameObject.tag == "enemy")
+        if(other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             isAttack = false;
         }

@@ -3,14 +3,22 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Player
+public class Player
 {
-    private static int hp = 10;
-    private static int stamina = 10;
-    private static int attack = 10;
-    private static int attackType;
-    private static int blockType;
-    public static int Hp
+    private Player() {}
+    public static Player instance;
+    public static Player getInstans()
+    {   
+        if(instance == null)
+            instance = new Player();
+        return instance;
+    }
+    private int hp = 10;
+    private int stamina = 10;
+    private int attack = 10;
+    private int attackType;
+    private int blockType;
+    public int Hp
     {
         get
         {
@@ -21,7 +29,7 @@ public static class Player
             hp = value;
         }
     }
-    public static int Stamina
+    public int Stamina
     {
         get
         {
@@ -32,7 +40,7 @@ public static class Player
             stamina = value;
         }
     }
-    public static int Attack
+    public int Attack
     {
         get
         {
@@ -43,7 +51,7 @@ public static class Player
             attack = value;
         }
     }
-    public static int AttackType
+    public int AttackType
     {
         get
         {
@@ -54,7 +62,7 @@ public static class Player
             attackType = value;
         }
     }
-    public static int BlockType
+    public int BlockType
     {
         get
         {
