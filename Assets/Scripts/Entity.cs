@@ -2,42 +2,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Entity
+public abstract class Entity : MonoBehaviour
 {
-    private int hp;
-    private int stamina;
-    private int attack;
-    public int Hp
-    {
-        get
+        private float hp;
+        private float stamina;
+        private float damage;
+        private int attackType;
+        private int blockType;
+
+        public float Hp
         {
-            return hp;
+            get
+            {
+                return hp;
+            }
+
+            set
+            {
+                hp = value;
+            }
         }
-        set 
+
+        public float Stamina
         {
-            hp = value;
+            get
+            {
+                return stamina;
+            }
+
+            set
+            {
+                stamina = value;
+            }
         }
-    }
-    public int Stamina
-    {
-        get
+
+        public float Damage
         {
-            return stamina;
+            get
+            {
+                return damage;
+            }
+
+            set
+            {
+                damage = value;
+            }
         }
-        set
+
+        public int AttackType
         {
-            stamina = value;
+            get
+            {
+                return attackType;
+            }
+
+            set
+            {
+                attackType = value;
+            }
         }
-    }
-    public int Attack
-    {
-        get
+
+        public int BlockType
         {
-            return attack;
+            get
+            {
+                return blockType;
+            }
+
+            set
+            {
+                blockType = value;
+            }
         }
-        set
-        {
-            attack = value;
-        }
-    }
+
 }

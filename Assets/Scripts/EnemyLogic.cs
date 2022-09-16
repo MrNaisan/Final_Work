@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class EnemyLogic : MonoBehaviour
 {
-    public GameObject Enemy;
     private GameObject player;
     private bool isDeteced;
     public float Speed;
+    public Enemy Enemy;
     
+    private void Awake() 
+    {
+        Enemy = new Enemy(10, 10, 1);
+        Debug.Log("HP " + Enemy.Hp);
+        Debug.Log("Stamin " + Enemy.Stamina);
+    }
     private void Update() 
     {
         Move();
         if (isDeteced)
             MoveToPlayer();
+        if (Enemy.Hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Move()

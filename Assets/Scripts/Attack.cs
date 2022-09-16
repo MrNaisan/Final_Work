@@ -4,71 +4,83 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public int Damage;
     private bool isAttack;
-    public int Damage1;
+    private bool readyAttack = true;
+    private GameObject enemy;
     
-    private void Start() 
-    {
-        
-    }
     private void Update() 
     {
         if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.Q))
         {
-            UpAttack();
+            Player.instance.AttackType = 1;
+            PlayerAttack();
         }
         else if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.E))
         {
-            DownAttack();
+            Player.instance.AttackType = 3;
+            PlayerAttack();
         }
         else if(Input.GetMouseButtonDown(0))
         {
-            MidAttack();
+            Player.instance.AttackType = 2;
+            PlayerAttack();
         }
 
     }
-
-    private void UpAttack()
-    {
-        if(isAttack)
-        {
-            
-        }
-    }
-
-    private void DownAttack()
-    {
-        if(isAttack)
-        {
-            Debug.Log("Down");
-        }
-    }
-
-    private void MidAttack()
-    {
-        if(isAttack)
-        {
-            Debug.Log("Mid");
-        }
-    }
-
-    
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.TryGetComponent<Enemy>(out Enemy enemy))
+        if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
         {
-            Damage1 = enemy.UpBlock() - (Damage/10);
             isAttack = true;
+            this.enemy = enemy.gameObject;
         }
     }
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.TryGetComponent<Enemy>(out Enemy enemy))
+        if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
         {
             isAttack = false;
+            this.enemy = null;
         }
     }
 
+    private void PlayerAttack()
+    {
+        if(readyAttack)
+        {
+            if(isAttack)
+            {
+                if(enemy.TryGetComponent<EnemyLogic>(out EnemyLogic enemyStats))
+                {
+                    if (enemyStats.Enemy.Stamina != 0)
+                    {
+                        if (enemyStats.Enemy.BlockType == Player.instance.AttackType)
+                        {
+                            enemyStats.Enemy.Stamina -= Player.instance.Damage;
+                        }
+                        else
+                        {
+                            enemyStats.Enemy.Hp -= Player.instance.Damage;
+                            enemyStats.Enemy.Stamina -= Player.instance.Damage;
+                        }
+                    }
+                    else
+                    {
+                    enemyStats.Enemy.Hp -= Player.instance.Damage;
+                    }
+                    Debug.Log("HP " + enemyStats.Enemy.Hp);
+                    Debug.Log("Stamin " + enemyStats.Enemy.Stamina);
+                }
+            }
+            StartCoroutine("CD");
+        }
+    }
+
+    IEnumerator CD()
+    {
+        readyAttack = false;
+		yield return new WaitForSeconds(3f);
+        readyAttack = true;
+    }
 }

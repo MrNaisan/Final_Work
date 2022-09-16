@@ -4,62 +4,78 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // private bool isBlock;
+   private bool isBlock;
+    private GameObject enemy;
+    
+    private void Update() 
+    {
+        if(Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.Q))
+        {
+            Player.instance.BlockType = 1;
+            PlayerBlock();
+        }
+        else if(Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.E))
+        {
+            Player.instance.BlockType = 3;
+            PlayerBlock();
+        }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            Player.instance.BlockType = 2;
+            PlayerBlock();
+        }
 
-    // private int blockType;
-    // private void Update() 
-    // {
-    //     if(Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.Q))
-    //     {
-    //         UpBlock();
-    //     }
-    //     else if(Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.E))
-    //     {
-    //         DownBlock();
-    //     }
-    //     else if(Input.GetMouseButtonDown(1))
-    //     {
-    //         MidBlock();
-    //     }
-    // }
+    }
 
-    // private void UpBlock()
-    // {
-    //     blockType = Player.BlockType;
-    //     if(blockType == Player.AttackType)
-    //     {
-    //     if(Player.Stamina != 0)
-    //         {
-    //             Player.Stamina -= 1;
-    //         }
-    //     else
-    //         Debug.Log("Up Block Fail");
-    //     }
-    //     else
-    //         Debug.Log("Up Block Fail");
-    // }
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
+        {
+            isBlock = true;
+            this.enemy = enemy.gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
+        {
+            isBlock = false;
+            this.enemy = null;
+        }
+    }
 
-    // private void DownBlock()
-    // {
-    //     if(Player.Stamina != 0)
-    //         {
-    //             isBlock = true;
-    //             Player.Stamina -= 1;
-    //         }
-    //     else
-    //         Debug.Log("Down Block Fail");
-    // }
+    private void PlayerBlock()
+    {
+        if(isBlock)
+        {
+            if(enemy.TryGetComponent<Enemy>(out Enemy enemyStats))
+            {
+                if (Player.instance.Stamina != 0)
+                {
+                    if (Player.instance.BlockType == enemyStats.AttackType)
+                    {
+                        Player.instance.Stamina -= enemyStats.Damage;
+                    }
+                    else
+                    {
+                        Player.instance.Hp -= enemyStats.Damage;
+                        Player.instance.Stamina -= enemyStats.Damage;
+                    }
+                }
+                else
+                {
+                    Player.instance.Hp -= enemyStats.Damage;
+                }
+            }
+        }
+        StartCoroutine("CD");
+    }
 
-    // private void MidBlock()
-    // {
-    //     if(Player.Stamina != 0)
-    //         {
-    //             isBlock = true;
-    //             Player.Stamina -= 1;
-    //         }
-    //     else
-    //         Debug.Log("Mid Block Fail");
-    // }
+    IEnumerator CD()
+    {
+        isBlock = false;
+		yield return new WaitForSeconds(3f);
+    }
 }
 
 
