@@ -67,7 +67,7 @@ public class Attack : MonoBehaviour
                     }
                     else
                     {
-                    enemyStats.Enemy.Hp -= Player.instance.Damage;
+                        enemyStats.Enemy.Hp -= Player.instance.Damage;
                     }
                     Debug.Log("HP " + enemyStats.Enemy.Hp);
                     Debug.Log("Stamin " + enemyStats.Enemy.Stamina);

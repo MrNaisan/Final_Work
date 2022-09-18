@@ -4,75 +4,89 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-        private float hp;
-        private float stamina;
-        private float damage;
-        private int attackType;
-        private int blockType;
+    private float hp;
+    private float stamina;
+    private float damage;
+    private int attackType;
+    private int blockType;
+    private float speed;
 
-        public float Hp
+    public float Hp
+    {
+        get
         {
-            get
-            {
-                return hp;
-            }
-
-            set
-            {
-                hp = value;
-            }
+            return hp;
         }
 
-        public float Stamina
+        set
         {
-            get
-            {
-                return stamina;
-            }
+            hp = value;
+        }
+    }
 
-            set
-            {
-                stamina = value;
-            }
+    public float Stamina
+    {
+        get
+        {
+            return stamina;
         }
 
-        public float Damage
+        set
         {
-            get
-            {
-                return damage;
-            }
+            stamina = value;
+        }
+    }
 
-            set
-            {
-                damage = value;
-            }
+    public float Damage
+    {
+        get
+        {
+            return damage;
         }
 
-        public int AttackType
+        set
         {
-            get
-            {
-                return attackType;
-            }
+            damage = value;
+        }
+    }
 
-            set
-            {
-                attackType = value;
-            }
+    public int AttackType
+    {
+        get
+        {
+            return attackType;
         }
 
-        public int BlockType
+        set
         {
-            get
-            {
-                return blockType;
-            }
-
-            set
-            {
-                blockType = value;
-            }
+            attackType = value;
         }
+    }
+
+    public int BlockType
+    {
+        get
+        {
+            return blockType;
+        }
+
+        set
+        {
+            blockType = value;
+        }
+    }
+
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+
+        set
+        {
+            speed = value;
+        }
+    }
 
 }

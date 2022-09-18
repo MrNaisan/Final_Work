@@ -5,12 +5,15 @@ using UnityEngine.Events;
 
 public class AttackRengeScript : MonoBehaviour
 {
-    public UnityEvent AttackRenge;
-    void OnTriggerStay2D(Collider2D coll) 
+    public EnemyLogic Logic;
+    void OnTriggerStay2D(Collider2D other) 
     {
-        if (coll.tag == "player")
+        if (other.TryGetComponent<Attack>(out Attack attack))
         {
-            AttackRenge.Invoke();
+            if (Player.instance.AttackType != 0)
+                Logic.BLock();
+            else
+                Logic.Attack();
         }
     }
 }

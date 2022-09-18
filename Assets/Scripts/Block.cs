@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-   private bool isBlock;
+    private bool isBlock;
     private GameObject enemy;
-    
+    private bool readyBlock;
+
     private void Update() 
     {
         if(Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.Q))
@@ -24,7 +25,10 @@ public class Block : MonoBehaviour
             Player.instance.BlockType = 2;
             PlayerBlock();
         }
-
+        if (Player.instance.Hp <=0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -48,23 +52,27 @@ public class Block : MonoBehaviour
     {
         if(isBlock)
         {
-            if(enemy.TryGetComponent<Enemy>(out Enemy enemyStats))
+            if(enemy.TryGetComponent<EnemyLogic>(out EnemyLogic enemyStats))
             {
-                if (Player.instance.Stamina != 0)
+                Debug.Log(enemyStats.Enemy.IsAttack);
+                if(enemyStats.Enemy.IsAttack)
                 {
-                    if (Player.instance.BlockType == enemyStats.AttackType)
+                    if (Player.instance.Stamina != 0)
                     {
-                        Player.instance.Stamina -= enemyStats.Damage;
+                        if (Player.instance.BlockType == enemyStats.Enemy.AttackType)
+                        {
+                            Player.instance.Stamina -= enemyStats.Enemy.Damage;
+                        }
+                        else
+                        {
+                            Player.instance.Hp -= enemyStats.Enemy.Damage;
+                            Player.instance.Stamina -= enemyStats.Enemy.Damage;
+                        }   
                     }
                     else
                     {
                         Player.instance.Hp -= enemyStats.Damage;
-                        Player.instance.Stamina -= enemyStats.Damage;
                     }
-                }
-                else
-                {
-                    Player.instance.Hp -= enemyStats.Damage;
                 }
             }
         }
@@ -73,8 +81,9 @@ public class Block : MonoBehaviour
 
     IEnumerator CD()
     {
-        isBlock = false;
+        readyBlock = false;
 		yield return new WaitForSeconds(3f);
+        readyBlock = true;
     }
 }
 

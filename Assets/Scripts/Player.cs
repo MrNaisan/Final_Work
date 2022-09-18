@@ -9,9 +9,10 @@ public class Player : Entity
     public void Awake() 
     {
         instance = new Player();
-        instance.Hp = 10;
+        instance.Hp = 1;
         instance.Damage = 1;
-        instance.Stamina = 10;
+        instance.Stamina = 1;
+        instance.Speed = 5;
     }
     
 }
