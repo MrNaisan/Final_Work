@@ -76,7 +76,7 @@ public class Attack : MonoBehaviour
                     Debug.Log("Stamin " + enemyStats.Enemy.Stamina);
                 }
             }
-            StartCoroutine("CD");
+            StartCoroutine(CD());
             Player.instance.AttackType = 0;
         }
     }
