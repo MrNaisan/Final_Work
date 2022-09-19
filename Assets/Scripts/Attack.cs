@@ -25,7 +25,10 @@ public class Attack : MonoBehaviour
             Player.instance.AttackType = 2;
             PlayerAttack();
         }
-
+        if (Player.instance.Hp <=0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -74,6 +77,7 @@ public class Attack : MonoBehaviour
                 }
             }
             StartCoroutine("CD");
+            Player.instance.AttackType = 0;
         }
     }
 

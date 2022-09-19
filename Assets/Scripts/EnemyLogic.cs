@@ -14,6 +14,7 @@ public class EnemyLogic : MonoBehaviour
     public List<int> AvailableBlocks;
     public List<int> AvailableAttacks;
     private bool readyAttack = true;
+    private bool waitAttack = true;
 
     private void Awake() 
     {
@@ -23,7 +24,6 @@ public class EnemyLogic : MonoBehaviour
     }
     private void Update() 
     {
-        Move();
         if (isDeteced)
             MoveToPlayer();
         else
@@ -41,19 +41,22 @@ public class EnemyLogic : MonoBehaviour
 
     public void Attack()
     {
-        Enemy.IsAttack = true;
         if (readyAttack)
         {
-            Enemy.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
-            Debug.Log(Enemy.AttackType);
             StartCoroutine("CD");
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+            StartCoroutine("WaitAttack");
         }
-        
     }
 
     public void BLock()
     {
-
+        if (readyAttack)
+        {
+            Enemy.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
+            Debug.Log(Enemy.BlockType);
+            StartCoroutine("CD");
+        }
     }
 
     private void MoveToPlayer()
@@ -76,5 +79,32 @@ public class EnemyLogic : MonoBehaviour
         readyAttack = false;
 		yield return new WaitForSeconds(3f);
         readyAttack = true;
+    }
+
+    IEnumerator WaitAttack()
+    {
+		yield return new WaitForSeconds(1f);
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        Enemy.IsAttack = true;
+        Enemy.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
+        Debug.Log(Enemy.AttackType);
+        if (Player.instance.Stamina != 0)
+        {
+            if (Player.instance.BlockType == Enemy.AttackType)
+            {
+                Player.instance.Stamina -= Enemy.Damage;
+            }
+            else
+            {
+                Player.instance.Hp -= Enemy.Damage;
+                Player.instance.Stamina -= Enemy.Damage;
+            }
+        }
+        else
+        {
+            Player.instance.Hp -= Enemy.Damage;
+        }
+        Debug.Log(Player.instance.Hp);
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
     }
 }
