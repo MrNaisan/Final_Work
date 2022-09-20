@@ -12,20 +12,17 @@ public class Attack : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.Q))
         {
-            Player.instance.AttackType = 1;
-            PlayerAttack();
+            PlayerAttack(1);
         }
         else if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.E))
         {
-            Player.instance.AttackType = 3;
-            PlayerAttack();
+            PlayerAttack(2);
         }
         else if(Input.GetMouseButtonDown(0))
         {
-            Player.instance.AttackType = 2;
-            PlayerAttack();
+            PlayerAttack(3);
         }
-        if (Player.instance.Hp <=0)
+        if (Player.instance.Hp <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -36,7 +33,6 @@ public class Attack : MonoBehaviour
         if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
         {
             isAttack = true;
-            this.enemy = enemy.gameObject;
         }
     }
     private void OnTriggerExit2D(Collider2D other) 
@@ -44,40 +40,18 @@ public class Attack : MonoBehaviour
         if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
         {
             isAttack = false;
-            this.enemy = null;
         }
     }
 
-    private void PlayerAttack()
+    private void PlayerAttack(int AttackNum)
     {
         if(readyAttack)
         {
             if(isAttack)
             {
-                if(enemy.TryGetComponent<EnemyLogic>(out EnemyLogic enemyStats))
-                {
-                    if (enemyStats.Enemy.Stamina != 0)
-                    {
-                        if (enemyStats.Enemy.BlockType == Player.instance.AttackType)
-                        {
-                            enemyStats.Enemy.Stamina -= Player.instance.Damage;
-                        }
-                        else
-                        {
-                            enemyStats.Enemy.Hp -= Player.instance.Damage;
-                            enemyStats.Enemy.Stamina -= Player.instance.Damage;
-                        }
-                    }
-                    else
-                    {
-                        enemyStats.Enemy.Hp -= Player.instance.Damage;
-                    }
-                    Debug.Log("HP " + enemyStats.Enemy.Hp);
-                    Debug.Log("Stamin " + enemyStats.Enemy.Stamina);
-                }
+                Player.instance.AttackType = AttackNum;
             }
             StartCoroutine(CD());
-            Player.instance.AttackType = 0;
         }
     }
 
@@ -85,6 +59,7 @@ public class Attack : MonoBehaviour
     {
         readyAttack = false;
 		yield return new WaitForSeconds(3f);
+        Player.instance.AttackType = 0;
         readyAttack = true;
     }
 }

@@ -14,6 +14,7 @@ public class EnemyLogic : MonoBehaviour
     public List<int> AvailableBlocks;
     public List<int> AvailableAttacks;
     private bool readyAttack = true;
+    private bool readyBlock = true;
     private bool waitAttack = true;
 
     private void Awake() 
@@ -43,19 +44,35 @@ public class EnemyLogic : MonoBehaviour
     {
         if (readyAttack)
         {
-            StartCoroutine("CD");
+            StartCoroutine(AttackCD());
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            StartCoroutine("WaitAttack");
+            StartCoroutine(WaitAttack());
         }
     }
 
     public void BLock()
     {
-        if (readyAttack)
+        if (readyBlock)
         {
+            StartCoroutine(BlockCD());
             Enemy.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
-            Debug.Log(Enemy.BlockType);
-            StartCoroutine("CD");
+            if (Enemy.Stamina != 0)
+            {
+                if (Enemy.BlockType == Player.instance.AttackType)
+                {
+                    Enemy.Stamina -= Player.instance.Damage;
+                }
+                else
+                {
+                    Enemy.Hp -= Player.instance.Damage;
+                    Enemy.Stamina -= Player.instance.Damage;
+                }
+            }
+            else
+            {
+                Enemy.Hp -= Player.instance.Damage;
+            }
+            Debug.Log(Enemy.Hp);
         }
     }
 
@@ -74,11 +91,18 @@ public class EnemyLogic : MonoBehaviour
         isDeteced = false;
     }
     
-    IEnumerator CD()
+    IEnumerator AttackCD()
     {
         readyAttack = false;
 		yield return new WaitForSeconds(3f);
         readyAttack = true;
+    }
+
+    IEnumerator BlockCD()
+    {
+        readyBlock = false;
+		yield return new WaitForSeconds(2f);
+        readyBlock = true;
     }
 
     IEnumerator WaitAttack()

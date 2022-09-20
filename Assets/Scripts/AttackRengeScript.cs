@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class AttackRengeScript : MonoBehaviour
 {
     public EnemyLogic Logic;
-    void OnTriggerStay2D(Collider2D other) 
+    private void OnTriggerStay2D(Collider2D other) 
     {
         if (other.TryGetComponent<Attack>(out Attack attack))
         {
@@ -15,5 +15,10 @@ public class AttackRengeScript : MonoBehaviour
             else
                 Logic.Attack();
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        Logic.StopCoroutine("WaitAttack");
     }
 }
