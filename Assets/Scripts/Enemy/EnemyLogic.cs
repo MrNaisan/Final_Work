@@ -20,16 +20,14 @@ public class EnemyLogic : MonoBehaviour
     private void Awake() 
     {
         Enemy = new Enemy(Hp, Stamin, Damage, AvailableAttacks, AvailableBlocks, Speed);
-        Debug.Log("HP " + Enemy.Hp);
-        Debug.Log("Stamin " + Enemy.Stamina);
+        Debug.Log("HP " + Enemy.State.Hp);
+        Debug.Log("Stamin " + Enemy.State.Stamina);
     }
     private void Update() 
     {
         if (isDeteced)
             MoveToPlayer();
-        else
-            Move();
-        if (Enemy.Hp <= 0)
+        if (Enemy.State.Hp <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -42,9 +40,9 @@ public class EnemyLogic : MonoBehaviour
 
     public void Attack()
     {
+        
         if (readyAttack)
         {
-            StartCoroutine(AttackCD());
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
             StartCoroutine(WaitAttack());
         }
@@ -55,30 +53,30 @@ public class EnemyLogic : MonoBehaviour
         if (readyBlock)
         {
             StartCoroutine(BlockCD());
-            Enemy.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
-            if (Enemy.Stamina != 0)
+            Enemy.State.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
+            if (Enemy.State.Stamina != 0)
             {
-                if (Enemy.BlockType == Player.instance.AttackType)
+                if (Enemy.State.BlockType == PlayerCont.Player.State.AttackType)
                 {
-                    Enemy.Stamina -= Player.instance.Damage;
+                    Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
                 }
                 else
                 {
-                    Enemy.Hp -= Player.instance.Damage;
-                    Enemy.Stamina -= Player.instance.Damage;
+                    Enemy.State.Hp -= PlayerCont.Player.State.Damage;
+                    Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
                 }
             }
             else
             {
-                Enemy.Hp -= Player.instance.Damage;
+                Enemy.State.Hp -= PlayerCont.Player.State.Damage;
             }
-            Debug.Log(Enemy.Hp);
+            Debug.Log($"Enemy HP:" + Enemy.State.Hp);
         }
     }
 
     private void MoveToPlayer()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, Time.deltaTime * Enemy.Speed);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, Time.deltaTime * Enemy.State.Speed);
     }
     
     public void DetectedPlayerTrue(GameObject player)
@@ -90,13 +88,6 @@ public class EnemyLogic : MonoBehaviour
     {
         isDeteced = false;
     }
-    
-    IEnumerator AttackCD()
-    {
-        readyAttack = false;
-		yield return new WaitForSeconds(3f);
-        readyAttack = true;
-    }
 
     IEnumerator BlockCD()
     {
@@ -107,28 +98,31 @@ public class EnemyLogic : MonoBehaviour
 
     IEnumerator WaitAttack()
     {
+        readyAttack = false;
+        Enemy.State.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
+        Debug.Log(Enemy.State.AttackType);
 		yield return new WaitForSeconds(1f);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
         Enemy.IsAttack = true;
-        Enemy.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
-        Debug.Log(Enemy.AttackType);
-        if (Player.instance.Stamina != 0)
+        if (PlayerCont.Player.State.Stamina != 0)
         {
-            if (Player.instance.BlockType == Enemy.AttackType)
+            if (PlayerCont.Player.State.BlockType == Enemy.State.AttackType)
             {
-                Player.instance.Stamina -= Enemy.Damage;
+                PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
             }
             else
             {
-                Player.instance.Hp -= Enemy.Damage;
-                Player.instance.Stamina -= Enemy.Damage;
+                PlayerCont.Player.State.Hp -= Enemy.State.Damage;
+                PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
             }
         }
         else
         {
-            Player.instance.Hp -= Enemy.Damage;
+            PlayerCont.Player.State.Hp -= Enemy.State.Damage;
         }
-        Debug.Log(Player.instance.Hp);
+        Debug.Log($"Player HP:" + PlayerCont.Player.State.Hp);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(2f);
+        readyAttack = true;
     }
 }

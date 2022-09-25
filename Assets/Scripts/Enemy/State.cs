@@ -1,9 +1,8 @@
 using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class State
 {
     private float hp;
     private float stamina;
@@ -89,14 +88,5 @@ public class Player : MonoBehaviour
             speed = value;
         }
     }
-    public static Player instance;
-    public void Awake() 
-    {
-        instance = new Player();
-        instance.Hp = 10;
-        instance.Damage = 1;
-        instance.Stamina = 10;
-        instance.Speed = 5;
-    }
-    
+
 }

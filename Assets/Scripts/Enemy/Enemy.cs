@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Entity
+public class Enemy
 {
+    private State state;
     private List<int> availableBlocks;
     private List<int> availableAttacks;
     private bool isAttack;
@@ -52,13 +53,25 @@ public class Enemy : Entity
             isBlock = value;
         }
     }
+    public State State
+    {
+        get
+        {
+            return state;
+        }
+        set
+        {
+            state = value;
+        }
+    }
     public Enemy(float hp, float st, float dm, List<int> aa, List<int> ab, float sp)
     {
-        Hp = hp;
-        Stamina = st;
-        Damage = dm;
+        state = new State();
+        State.Hp = hp;
+        State.Stamina = st;
+        State.Damage = dm;
         AvailableAttacks = aa;
         AvailableBlocks = ab;
-        Speed = sp;
+        State.Speed = sp;
     }
 }

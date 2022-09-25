@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6227255197566117701}
   - component: {fileID: 6227255197566117721}
   - component: {fileID: 6227255197566117722}
+  - component: {fileID: 4662734842027476926}
   - component: {fileID: 6227255197566117720}
   m_Layer: 0
   m_Name: Player
@@ -136,7 +137,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 387af461873c30640b5c3426e728a011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+--- !u!114 &4662734842027476926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6227255197566117702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a199f74bb0eb9dc4bbc9ecdac2d3827f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &6227255197566117720
 Rigidbody2D:
   serializedVersion: 4

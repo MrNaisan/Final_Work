@@ -7,9 +7,10 @@ public class PlayerMove : MonoBehaviour
     public GameObject PlayerObj;
     private float Speed;
 
+
     private void Start() 
     {
-        Speed = Player.instance.Speed;
+        Speed = PlayerObj.GetComponent<Player>().State.Speed;
     }
     private void Update()   
     {
