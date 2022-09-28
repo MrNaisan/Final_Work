@@ -71,6 +71,7 @@ public class EnemyLogic : MonoBehaviour
                 Enemy.State.Hp -= PlayerCont.Player.State.Damage;
             }
             Debug.Log($"Enemy HP:" + Enemy.State.Hp);
+            Debug.Log($"Enemy Stamina:" + Enemy.State.Stamina);
         }
     }
 

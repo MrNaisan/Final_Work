@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1577717595045941736}
   - component: {fileID: 1577717595045941742}
-  - component: {fileID: 1577717595045941743}
   m_Layer: 0
   m_Name: AttackRenge
   m_TagString: Untagged
@@ -49,33 +48,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.3
---- !u!114 &1577717595045941743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577717595045941737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b4805bd23fdbe94bbf5411f067447b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackRenge:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1577717596318598992}
-        m_TargetAssemblyTypeName: EnemyLogic, Assembly-CSharp
-        m_MethodName: DetectedPlayerFalse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1577717596164139768
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,36 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283c9d1c08c666e47b48b77105ad4a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewTrue:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1577717596318598992}
-        m_TargetAssemblyTypeName: EnemyLogic, Assembly-CSharp
-        m_MethodName: DetectedPlayerTrue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  ViewFalse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1577717596318598992}
-        m_TargetAssemblyTypeName: EnemyLogic, Assembly-CSharp
-        m_MethodName: DetectedPlayerFalse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  Logic: {fileID: 0}
 --- !u!1 &1577717596318599087
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6573846233774e4182f579823df0f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 1577717596318599087}
-  Player: {fileID: 6227255197566117702, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
   Speed: 1
+  Hp: 0
+  Stamin: 0
+  Damage: 0
+  AvailableBlocks: 
+  AvailableAttacks: 

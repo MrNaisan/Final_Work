@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RotateController : MonoBehaviour
 {
-    public SpriteRenderer KatanaSprite;
-    public SpriteRenderer PlayerSprite;
+    public SpriteRenderer WeaponSprite;
+    public SpriteRenderer EntitySprite;
     private void Update() 
     {
         Vector3 diference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -13,13 +13,13 @@ public class RotateController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rotateZ);
         if  (rotateZ > 90  || rotateZ < -90 )
         {
-            KatanaSprite.flipY = true;
-            PlayerSprite.flipX = true;
+            WeaponSprite.flipY = true;
+            EntitySprite.flipX = true;
         }
         else
         {
-            KatanaSprite.flipY = false;
-            PlayerSprite.flipX = false;
+            WeaponSprite.flipY = false;
+            EntitySprite.flipX = false;
         }
             
     }

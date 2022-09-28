@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    private bool isAttack;
+    public bool IsAttack;
     private bool readyAttack = true;
-    public Animator Katana;
-    private SpriteRenderer PlayerSprite;
+    public Animator KatanaAnim;
+    private SpriteRenderer playerSprite;
 
     private void Start()
     {
-        PlayerSprite = this.GetComponent<SpriteRenderer>();
+        playerSprite = this.GetComponent<SpriteRenderer>();
     }
     private void Update() 
     {
@@ -19,54 +19,41 @@ public class Attack : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.Q))
             {
-                if (!PlayerSprite.flipX)
-                    Katana.SetTrigger("UpAttack");
+                if (!playerSprite.flipX)
+                    KatanaAnim.SetTrigger("UpAttack");
                 else
-                    Katana.SetTrigger("UpAttackFlip");
+                    KatanaAnim.SetTrigger("UpAttackFlip");
                 PlayerAttack(1);
             }
             else if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.E))
             {
-                if (!PlayerSprite.flipX)
-                    Katana.SetTrigger("DownAttack");
+                if (!playerSprite.flipX)
+                    KatanaAnim.SetTrigger("DownAttack");
                 else
-                    Katana.SetTrigger("DownAttackFlip");
+                    KatanaAnim.SetTrigger("DownAttackFlip");
                 PlayerAttack(2);
             }
             else if(Input.GetMouseButtonDown(0))
             {
-                if (!PlayerSprite.flipX)
-                    Katana.SetTrigger("MidAttack");
+                if (!playerSprite.flipX)
+                    KatanaAnim.SetTrigger("MidAttack");
                 else
-                    Katana.SetTrigger("MidAttackFlip");
+                    KatanaAnim.SetTrigger("MidAttackFlip");
                 PlayerAttack(3);
             }
         }
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
-        {
-            isAttack = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other) 
-    {
-        if(other.TryGetComponent<EnemyLogic>(out EnemyLogic enemy))
-        {
-            isAttack = false;
-            PlayerCont.Player.State.AttackType = 0;
-        }
-    }
 
     private void PlayerAttack(int AttackNum)
     {
         StartCoroutine(CD(3f));
-        if(isAttack)
+        if(IsAttack)
         {
+            Debug.Log("attack");
             PlayerCont.Player.State.AttackType = AttackNum;
+            IsAttack = false;
         }
     }
 

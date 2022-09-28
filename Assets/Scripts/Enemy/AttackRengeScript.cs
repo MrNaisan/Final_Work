@@ -13,17 +13,17 @@ public class AttackRengeScript : MonoBehaviour
         if (other.TryGetComponent<Player>(out Player player))
         {
             Logic.DetectedPlayerFalse();
-        }
-        if (other.TryGetComponent<Attack>(out Attack attack))
-        {
             updateCor = StartCoroutine(UpdateTrig());
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        StopCoroutine(updateCor);
-        Logic.DetectedPlayerTrue(other.gameObject);
+        if (other.TryGetComponent<Player>(out Player player))
+        {
+            StopCoroutine(updateCor);
+            Logic.DetectedPlayerTrue(other.gameObject);
+        }
     }
 
     IEnumerator UpdateTrig()
