@@ -306,10 +306,6 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1577717595045941743, guid: 84b61491c0812b4419b86900d8f88dfb, type: 3}
-      propertyPath: Logic
-      value: 
-      objectReference: {fileID: 1307580897}
     - target: {fileID: 1577717596164139768, guid: 84b61491c0812b4419b86900d8f88dfb, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -466,8 +462,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1577717595045941743, guid: 84b61491c0812b4419b86900d8f88dfb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b61491c0812b4419b86900d8f88dfb, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -637,6 +632,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1165252322 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6169795570632916392, guid: e98b42eb65c979b4689e651de34a7edb, type: 3}
+  m_PrefabInstance: {fileID: 6169795570698998241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1165446189
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,10 +682,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 2109224676}
+--- !u!1 &1184789732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6169795568921991846, guid: e98b42eb65c979b4689e651de34a7edb, type: 3}
+  m_PrefabInstance: {fileID: 6169795570698998241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1184789734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184789732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8f6cb785fcf7049aca04c6f09d7691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartTimeBtwAttack: 1
+  AttackPos: {fileID: 1287997782}
+  Enemy:
+    serializedVersion: 2
+    m_Bits: 8
+  AttackRange: 0.92
+  Anim: {fileID: 1184789735}
+  playerSprite: {fileID: 1165252322}
+--- !u!95 &1184789735 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6169795568921991851, guid: e98b42eb65c979b4689e651de34a7edb, type: 3}
+  m_PrefabInstance: {fileID: 6169795570698998241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1184789736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184789732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37476114ed9fb9245bf52e93722926ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockPos: {fileID: 1287997782}
+  Enemy:
+    serializedVersion: 2
+    m_Bits: 8
+  BlockRange: 0.92
+  Anim: {fileID: 0}
+  playerSprite: {fileID: 0}
 --- !u!1 &1281468708 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1577717596318599087, guid: 84b61491c0812b4419b86900d8f88dfb, type: 3}
   m_PrefabInstance: {fileID: 481778896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1287997782 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6169795568849528526, guid: e98b42eb65c979b4689e651de34a7edb, type: 3}
+  m_PrefabInstance: {fileID: 6169795570698998241}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1296149937
 GameObject:
@@ -818,6 +872,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669a4270a49eb444cb16680f64313f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2139378302 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1577717595045941737, guid: 84b61491c0812b4419b86900d8f88dfb, type: 3}
+  m_PrefabInstance: {fileID: 481778896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2139378305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139378302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4805bd23fdbe94bbf5411f067447b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Logic: {fileID: 1307580897}
 --- !u!1001 &1010084544778876180
 PrefabInstance:
   m_ObjectHideFlags: 0

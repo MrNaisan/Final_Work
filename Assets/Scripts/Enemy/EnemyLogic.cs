@@ -15,13 +15,10 @@ public class EnemyLogic : MonoBehaviour
     public List<int> AvailableAttacks;
     private bool readyAttack = true;
     private bool readyBlock = true;
-    private bool waitAttack = true;
-
+    public bool IsBlocked = false;
     private void Awake() 
     {
         Enemy = new Enemy(Hp, Stamin, Damage, AvailableAttacks, AvailableBlocks, Speed);
-        Debug.Log("HP " + Enemy.State.Hp);
-        Debug.Log("Stamin " + Enemy.State.Stamina);
     }
     private void Update() 
     {
@@ -40,16 +37,15 @@ public class EnemyLogic : MonoBehaviour
 
     public void Attack()
     {
-        
         if (readyAttack)
         {
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
             StartCoroutine(WaitAttack());
         }
     }
 
     public void BLock()
     {
+        StopCoroutine(WaitAttack());
         if (readyBlock)
         {
             StartCoroutine(BlockCD());
@@ -70,8 +66,6 @@ public class EnemyLogic : MonoBehaviour
             {
                 Enemy.State.Hp -= PlayerCont.Player.State.Damage;
             }
-            Debug.Log($"Enemy HP:" + Enemy.State.Hp);
-            Debug.Log($"Enemy Stamina:" + Enemy.State.Stamina);
         }
     }
 
@@ -93,7 +87,7 @@ public class EnemyLogic : MonoBehaviour
     IEnumerator BlockCD()
     {
         readyBlock = false;
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(1f);
         readyBlock = true;
     }
 
@@ -101,28 +95,35 @@ public class EnemyLogic : MonoBehaviour
     {
         readyAttack = false;
         Enemy.State.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
-        Debug.Log(Enemy.State.AttackType);
+        Debug.Log("Attack" + Enemy.State.AttackType);
 		yield return new WaitForSeconds(1f);
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-        Enemy.IsAttack = true;
-        if (PlayerCont.Player.State.Stamina != 0)
+        if (IsBlocked)
         {
-            if (PlayerCont.Player.State.BlockType == Enemy.State.AttackType)
+            if (PlayerCont.Player.State.Stamina != 0)
             {
-                PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                if (PlayerCont.Player.State.BlockType == Enemy.State.AttackType)
+                {
+                    PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                }
+                else
+                {
+                    PlayerCont.Player.State.Hp -= Enemy.State.Damage;
+                    PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                }
             }
             else
             {
                 PlayerCont.Player.State.Hp -= Enemy.State.Damage;
-                PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
             }
         }
         else
         {
+            PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
             PlayerCont.Player.State.Hp -= Enemy.State.Damage;
         }
-        Debug.Log($"Player HP:" + PlayerCont.Player.State.Hp);
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        IsBlocked = false;
+        Debug.Log("Stamina" + PlayerCont.Player.State.Stamina);
+        Debug.Log("Hp" + PlayerCont.Player.State.Hp);
         yield return new WaitForSeconds(2f);
         readyAttack = true;
     }

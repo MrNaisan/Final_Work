@@ -46,7 +46,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6169795568921991849}
   - component: {fileID: 6169795568921991851}
-  - component: {fileID: 6169795568921991848}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Untagged
@@ -95,26 +94,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6169795568921991848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6169795568921991846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a8f6cb785fcf7049aca04c6f09d7691, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartTimeBtwAttack: 1
-  AttackPos: {fileID: 6169795568849528526}
-  Enemy:
-    serializedVersion: 2
-    m_Bits: 8
-  AttackRange: 0.92
-  Anim: {fileID: 6169795568921991851}
-  playerSprite: {fileID: 6169795570632916392}
 --- !u!1 &6169795569049069317
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,11 +30,9 @@ public class AttackRengeScript : MonoBehaviour
     {
         while(true)
         {
-            if (PlayerCont.Player.State.AttackType != 0)
-                Logic.BLock();
-            else
+            if (PlayerCont.Player.State.AttackType == 0)
                 Logic.Attack();
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(1f);
         }
     }
 }
