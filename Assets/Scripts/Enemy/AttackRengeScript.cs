@@ -31,7 +31,7 @@ public class AttackRengeScript : MonoBehaviour
         while(true)
         {
             if (PlayerCont.Player.State.AttackType == 0)
-                Logic.Attack();
+                Logic.TriggerAttack();
             yield return new WaitForSeconds(1f);
         }
     }
