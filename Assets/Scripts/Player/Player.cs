@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private bool isStaminaRegen;
     private State state;
+    private float regenCD;
     public State State
     {
         get
@@ -17,6 +19,30 @@ public class Player : MonoBehaviour
             state = value;
         }
     }
+    
+    public bool IsStaminaRegen
+    {
+        get
+        {
+            return isStaminaRegen;
+        }
+        set
+        {
+            isStaminaRegen = value;
+        }
+    }
+    public float RegenCD
+    {
+        get
+        {
+            return regenCD;
+        }
+        set
+        {
+            regenCD = value;
+        }
+    }
+
     public void Awake() 
     {
         PlayerCont.Player = this;

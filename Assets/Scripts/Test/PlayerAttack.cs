@@ -16,38 +16,51 @@ public class PlayerAttack : MonoBehaviour
     {
         if (timeBtwAttack <= 0)
         {
-            if(Input.GetMouseButton(0) && Input.GetKey(KeyCode.Q))
-            {
-                PlayerCont.Player.State.AttackType = 1;
-                if (!playerSprite.flipX)
-                    Anim.SetTrigger("UpAttack");
-                else
-                    Anim.SetTrigger("UpAttackFlip");
-                timeBtwAttack = StartTimeBtwAttack;
-            }
-            else if(Input.GetMouseButton(0) && Input.GetKey(KeyCode.E))
-            {
-                PlayerCont.Player.State.AttackType = 2;
-                if (!playerSprite.flipX)
-                    Anim.SetTrigger("DownAttack");
-                else
-                    Anim.SetTrigger("DownAttackFlip");
-                timeBtwAttack = StartTimeBtwAttack;
-            }
-            else if(Input.GetMouseButton(0))
-            {
-                PlayerCont.Player.State.AttackType = 3;
-                if (!playerSprite.flipX)
-                    Anim.SetTrigger("MidAttack");
-                else
-                    Anim.SetTrigger("MidAttackFlip");
-                timeBtwAttack = StartTimeBtwAttack;
-            }
+            AttackAnimStart();
         }
         else
         {
             timeBtwAttack -= Time.deltaTime;
         }
+    }
+
+    private void AttackAnimStart()
+    {
+        if(Input.GetMouseButton(0) && Input.GetKey(KeyCode.Q))
+        {
+            OffRegen();
+            PlayerCont.Player.State.AttackType = 1;
+            if (!playerSprite.flipX)
+                Anim.SetTrigger("UpAttack");
+            else
+                Anim.SetTrigger("UpAttackFlip");
+            timeBtwAttack = StartTimeBtwAttack;
+        }
+        else if(Input.GetMouseButton(0) && Input.GetKey(KeyCode.E))
+        {
+            OffRegen();
+            PlayerCont.Player.State.AttackType = 2;
+            if (!playerSprite.flipX)
+                Anim.SetTrigger("DownAttack");
+            else
+                Anim.SetTrigger("DownAttackFlip");
+            timeBtwAttack = StartTimeBtwAttack;
+        }
+        else if(Input.GetMouseButton(0))
+        {
+            OffRegen();
+            PlayerCont.Player.State.AttackType = 3;
+            if (!playerSprite.flipX)
+                Anim.SetTrigger("MidAttack");
+            else
+                Anim.SetTrigger("MidAttackFlip");
+            timeBtwAttack = StartTimeBtwAttack;
+        }
+    }
+
+    private void OffRegen()
+    {
+        PlayerCont.Player.RegenCD = 10f;
     }
 
     public void OnAttack()

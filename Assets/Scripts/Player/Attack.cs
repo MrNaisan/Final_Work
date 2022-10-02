@@ -51,6 +51,7 @@ public class Attack : MonoBehaviour
         StartCoroutine(CD(3f));
         if(IsAttack)
         {
+            
             Debug.Log("attack");
             PlayerCont.Player.State.AttackType = AttackNum;
             IsAttack = false;

@@ -166,11 +166,9 @@ public class EnemyLogic : MonoBehaviour
     {
         readyAttack = false;
         Enemy.State.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
-        Debug.Log("Attack" + Enemy.State.AttackType);
 		yield return new WaitForSeconds(1f);
+        PlayerCont.Player.RegenCD = 10f;
         AnimCont();
-        Debug.Log("Stamina" + PlayerCont.Player.State.Stamina);
-        Debug.Log("Hp" + PlayerCont.Player.State.Hp);
         yield return new WaitForSeconds(2f);
         readyAttack = true;
     }
