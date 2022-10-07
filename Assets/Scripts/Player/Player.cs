@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
     private bool isStaminaRegen;
     private State state;
     private float regenCD;
+    [SerializeField]
+    private GameObject Effect;
     public State State
     {
         get
@@ -41,6 +44,12 @@ public class Player : MonoBehaviour
         {
             regenCD = value;
         }
+    }
+
+    public void ShowEffect(Color _color)
+    {
+        Effect.SetActive(true);
+        Effect.GetComponent<SpriteRenderer>().color = _color;
     }
 
     public void Awake() 

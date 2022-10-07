@@ -9,10 +9,10 @@ public class PlayerMove : MonoBehaviour
     private float maxHp;
     private float maxStamina;
     private bool readyHpRegen;
-    private bool readyStaminaRegen = true;
 
     private void Start() 
     {
+        StartCoroutine(StaminaRegen());
         maxHp = PlayerCont.Player.State.Hp;
         maxStamina = PlayerCont.Player.State.Stamina;
         Speed = PlayerObj.GetComponent<Player>().State.Speed;
@@ -36,21 +36,17 @@ public class PlayerMove : MonoBehaviour
         {
             Move(new Vector3(1, 0, 0));
         }
-        if(PlayerCont.Player.RegenCD <= 0)
-        {
-            if(readyStaminaRegen)
-                if(PlayerCont.Player.State.Stamina < maxStamina)
-                    StartCoroutine(StaminaRegen());
-        }
         PlayerCont.Player.RegenCD -= Time.deltaTime;
     }
 
     IEnumerator StaminaRegen()
     {
-        readyStaminaRegen = false;
-        yield return new WaitForSeconds(3f);
-        PlayerCont.Player.State.Stamina++;
-        readyStaminaRegen = true;
+        while(true)
+        {
+            yield return new WaitForSeconds(3f);
+            if(PlayerCont.Player.State.Stamina < maxStamina && PlayerCont.Player.RegenCD <= 0)
+                PlayerCont.Player.State.Stamina++;
+        }
     }
 
     private void Move(Vector3 Vector3)

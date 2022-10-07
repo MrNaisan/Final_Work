@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Bar : MonoBehaviour
+public class EnemyHpStamina : MonoBehaviour
 {
     public Image HpBar;
     public Image StaminaBar;
     private float maxHp;
     private float maxStamina;
+    public EnemyLogic Logic;
 
     private void Start() 
     {
-        maxHp = PlayerCont.Player.State.Hp;
-        maxStamina = PlayerCont.Player.State.Stamina;
+        maxHp = Logic.Enemy.State.Hp;
+        maxStamina = Logic.Enemy.State.Stamina;
     }
 
     private void Update()
     {
-        HpBar.fillAmount = PlayerCont.Player.State.Hp / maxHp;
-        StaminaBar.fillAmount = PlayerCont.Player.State.Stamina / maxStamina;
+        HpBar.fillAmount = Logic.Enemy.State.Hp / maxHp;
+        StaminaBar.fillAmount = Logic.Enemy.State.Stamina / maxStamina;
     }
 }

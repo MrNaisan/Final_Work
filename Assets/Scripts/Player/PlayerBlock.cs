@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerBlock : MonoBehaviour
 {
-    private bool isBlock;
+    private float timeBtwBlock;
+    public float StartTimeBtwBlock;
     public Transform BlockPos;
     public LayerMask Enemy;
     public float BlockRange;
@@ -13,16 +14,17 @@ public class PlayerBlock : MonoBehaviour
 
     private void Update()
     {
-        if (isBlock)
+        if (timeBtwBlock <= 0)
         {
-           BlockAnimStart();
+            BlockAnimStart();
+            if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetMouseButtonUp(1))
+            {
+                BlockAnimEnd();
+                PlayerCont.Player.State.BlockType = 0;
+                timeBtwBlock = StartTimeBtwBlock;
+            }
         }
-        else if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetMouseButtonUp(1))
-        {
-            BlockAnimEnd();
-            PlayerCont.Player.State.BlockType = 0;
-            StartCoroutine(BlockCD());
-        }
+        timeBtwBlock -= Time.deltaTime;
         OnBlock();
     }
 
@@ -31,7 +33,6 @@ public class PlayerBlock : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             PlayerCont.Player.State.BlockType = 1;
-            isBlock = false;
             if(!playerSprite.flipX)
                 Anim.SetTrigger("UpBlock");
             else
@@ -40,7 +41,6 @@ public class PlayerBlock : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.LeftAlt))
         {
             PlayerCont.Player.State.BlockType = 2;
-            isBlock = false;
             if(!playerSprite.flipX)
                 Anim.SetTrigger("DownBlock");
             else
@@ -49,7 +49,6 @@ public class PlayerBlock : MonoBehaviour
         else if(Input.GetMouseButtonDown(1))
         {
             PlayerCont.Player.State.BlockType = 3;
-            isBlock = false;
             if(!playerSprite.flipX)
                 Anim.SetTrigger("MidBlock");
             else
@@ -82,11 +81,6 @@ public class PlayerBlock : MonoBehaviour
         }
     }
 
-    IEnumerator BlockCD()
-    {
-        yield return new WaitForSeconds(1f);
-        isBlock = true;
-    }
     public void OnBlock()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(BlockPos.position, BlockRange, Enemy);

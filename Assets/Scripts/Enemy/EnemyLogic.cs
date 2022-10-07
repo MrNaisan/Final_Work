@@ -20,10 +20,12 @@ public class EnemyLogic : MonoBehaviour
     public SpriteRenderer EnemySptite;
     public Transform Weapon;
     public Animator WeaponAnim;
+    private float staminaCD;
     private void Awake() 
     {
         enemyPos = this.gameObject.transform.position.x;
         Enemy = new Enemy(Hp, Stamin, Damage, AvailableAttacks, AvailableBlocks, Speed);
+        StartCoroutine(StaminaRegen());
     }
     private void Update() 
     {
@@ -45,6 +47,7 @@ public class EnemyLogic : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        staminaCD -= Time.deltaTime;
     }
 
     public void Move()
@@ -56,6 +59,7 @@ public class EnemyLogic : MonoBehaviour
     {
         if (readyAttack)
         {
+            staminaCD = 10f;
             StartCoroutine(WaitAttack());
         }
     }
@@ -64,54 +68,62 @@ public class EnemyLogic : MonoBehaviour
     {
         if (IsBlocked)
         {
-            if (PlayerCont.Player.State.Stamina != 0)
+            if (PlayerCont.Player.State.Stamina > 0)
             {
-                if (PlayerCont.Player.State.BlockType == Enemy.State.AttackType)
+                if (PlayerCont.Player.State.BlockType != 0)
                 {
-                    PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                    if (PlayerCont.Player.State.BlockType == Enemy.State.AttackType)
+                    {
+                        PlayerCont.Player.ShowEffect(Color.yellow);
+                        Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
+                    }
+                    else
+                    {
+                        PlayerCont.Player.ShowEffect(Color.white);
+                        PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                    }
                 }
                 else
                 {
-                    PlayerCont.Player.State.Hp -= Enemy.State.Damage;
+                    PlayerCont.Player.ShowEffect(Color.red);
                     PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                    PlayerCont.Player.State.Hp -= Enemy.State.Damage;
                 }
-            }
+            }   
             else
             {
+                PlayerCont.Player.ShowEffect(Color.red);
                 PlayerCont.Player.State.Hp -= Enemy.State.Damage;
             }
         }
         else
         {
+            PlayerCont.Player.ShowEffect(Color.red);
             PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
             PlayerCont.Player.State.Hp -= Enemy.State.Damage;
         }
         IsBlocked = false;
     }
 
+    
+
     public void BLock()
     {
-        StopCoroutine(WaitAttack());
+        staminaCD = 10f;
+        StopCoroutine("WaitAttack");
         if (readyBlock)
         {
             StartCoroutine(BlockCD());
-            Enemy.State.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
-            if (Enemy.State.Stamina != 0)
-            {
-                if (Enemy.State.BlockType == PlayerCont.Player.State.AttackType)
-                {
-                    Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
-                }
-                else
-                {
-                    Enemy.State.Hp -= PlayerCont.Player.State.Damage;
-                    Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
-                }
-            }
-            else
-            {
-                Enemy.State.Hp -= PlayerCont.Player.State.Damage;
-            }
+        }
+    }
+
+    IEnumerator StaminaRegen()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(3f);
+            if(Enemy.State.Stamina < Stamin && staminaCD <= 0)
+                Enemy.State.Stamina++;
         }
     }
 
@@ -132,12 +144,33 @@ public class EnemyLogic : MonoBehaviour
 
     IEnumerator BlockCD()
     {
+        readyAttack = false;
         readyBlock = false;
-		yield return new WaitForSeconds(1f);
+        Enemy.State.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
+        if (Enemy.State.Stamina > 0)
+        {
+            if (Enemy.State.BlockType == PlayerCont.Player.State.AttackType)
+            {
+                Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
+            }
+            else
+            {
+                Enemy.State.Hp -= PlayerCont.Player.State.Damage;
+                Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
+            }
+        }
+        else
+        {
+            Enemy.State.Hp -= PlayerCont.Player.State.Damage;
+        }
+		yield return new WaitForSeconds(0.2f);
+        readyAttack = true;
+        yield return new WaitForSeconds(0.8f);
         readyBlock = true;
     }
 
-    private void AnimCont()
+
+    private void AnimAttackCont()
     {
         if(Enemy.State.AttackType == 1)
         {
@@ -162,14 +195,14 @@ public class EnemyLogic : MonoBehaviour
         }
     }
 
-    IEnumerator WaitAttack()
+    public IEnumerator WaitAttack()
     {
         readyAttack = false;
         Enemy.State.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
 		yield return new WaitForSeconds(1f);
         PlayerCont.Player.RegenCD = 10f;
-        AnimCont();
-        yield return new WaitForSeconds(2f);
+        AnimAttackCont();
+        yield return new WaitForSeconds(1f);
         readyAttack = true;
     }
 }
