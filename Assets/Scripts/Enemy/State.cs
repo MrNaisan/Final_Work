@@ -88,5 +88,4 @@ public class State
             speed = value;
         }
     }
-
 }

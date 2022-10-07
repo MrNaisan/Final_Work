@@ -21,6 +21,7 @@ public class EnemyLogic : MonoBehaviour
     public Transform Weapon;
     public Animator WeaponAnim;
     private float staminaCD;
+    public GameObject Effect;
     private void Awake() 
     {
         enemyPos = this.gameObject.transform.position.x;
@@ -75,7 +76,10 @@ public class EnemyLogic : MonoBehaviour
                     if (PlayerCont.Player.State.BlockType == Enemy.State.AttackType)
                     {
                         PlayerCont.Player.ShowEffect(Color.yellow);
-                        Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
+                        if (Enemy.State.Stamina > 0)
+                            Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
+                        else
+                            Enemy.State.Hp -= PlayerCont.Player.State.Damage;
                     }
                     else
                     {
@@ -105,16 +109,25 @@ public class EnemyLogic : MonoBehaviour
         IsBlocked = false;
     }
 
-    
+    public void ShowEffect(Color _color)
+    {
+        Effect.SetActive(true);
+        Effect.GetComponent<SpriteRenderer>().color = _color;
+    }
+
 
     public void BLock()
     {
         staminaCD = 10f;
+        Enemy.State.BlockType = Random.Range(0, 4);
         StopCoroutine("WaitAttack");
-        if (readyBlock)
+        if (readyBlock && Enemy.State.BlockType != 0)
         {
+            Enemy.State.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
             StartCoroutine(BlockCD());
         }
+        else if(readyBlock)
+            StartCoroutine(BlockCD());
     }
 
     IEnumerator StaminaRegen()
@@ -146,21 +159,31 @@ public class EnemyLogic : MonoBehaviour
     {
         readyAttack = false;
         readyBlock = false;
-        Enemy.State.BlockType = Enemy.AvailableBlocks[Random.Range(0, Enemy.AvailableBlocks.Count)];
         if (Enemy.State.Stamina > 0)
         {
-            if (Enemy.State.BlockType == PlayerCont.Player.State.AttackType)
+            if (Enemy.State.BlockType == 0)
             {
+                ShowEffect(Color.red);
+                Enemy.State.Hp -= PlayerCont.Player.State.Damage;
                 Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
+            }
+            else if (Enemy.State.BlockType == PlayerCont.Player.State.AttackType)
+            {
+                ShowEffect(Color.yellow);
+                if(PlayerCont.Player.State.Stamina > 0)
+                    PlayerCont.Player.State.Stamina -= Enemy.State.Damage;
+                else
+                    PlayerCont.Player.State.Hp -= Enemy.State.Damage;
             }
             else
             {
-                Enemy.State.Hp -= PlayerCont.Player.State.Damage;
+                ShowEffect(Color.white);
                 Enemy.State.Stamina -= PlayerCont.Player.State.Damage;
             }
         }
         else
         {
+            ShowEffect(Color.red);
             Enemy.State.Hp -= PlayerCont.Player.State.Damage;
         }
 		yield return new WaitForSeconds(0.2f);

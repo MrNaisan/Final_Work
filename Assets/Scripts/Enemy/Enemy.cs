@@ -7,8 +7,6 @@ public class Enemy
     private State state;
     private List<int> availableBlocks;
     private List<int> availableAttacks;
-    private bool isAttack;
-    private bool isBlock;
     public List<int> AvailableAttacks
     {
         get
@@ -29,28 +27,6 @@ public class Enemy
         set
         {
             availableBlocks = value;
-        }
-    }
-    public bool IsAttack
-    {
-        get
-        {
-            return isAttack;
-        }
-        set
-        {
-            isAttack = value;
-        }
-    }
-    public bool IsBlock
-    {
-        get
-        {
-            return isBlock;
-        }
-        set
-        {
-            isBlock = value;
         }
     }
     public State State
