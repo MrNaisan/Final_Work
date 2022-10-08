@@ -186,9 +186,9 @@ public class EnemyLogic : MonoBehaviour
             ShowEffect(Color.red);
             Enemy.State.Hp -= PlayerCont.Player.State.Damage;
         }
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(0.4f);
         readyAttack = true;
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.6f);
         readyBlock = true;
     }
 
