@@ -51,6 +51,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Move(Vector3 Vector3)
     {
-        PlayerObj.transform.Translate(Vector3 * Speed * Time.deltaTime);
+        var position = PlayerObj.transform.position;
+        position = position+Vector3 * Speed *Time.deltaTime;
+        PlayerObj.transform.position = position;
     }
 }

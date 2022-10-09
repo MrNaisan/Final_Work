@@ -399,6 +399,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Effect: {fileID: 382745218}
+--- !u!1 &397098023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8030850924510884979, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+  m_PrefabInstance: {fileID: 8030850923845564241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +415,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -483,6 +489,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418ec968921b0d8429c97c1776ba7606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 8701845979437106124, guid: 16093f376f89140428d3f5c8655409d6, type: 3}
+  GenerateRooms: 20
 --- !u!1 &828606985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 638257784068433637, guid: f961b162ce4566e469407aeb8747091c, type: 3}
       propertyPath: Speed
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 638257784068433637, guid: f961b162ce4566e469407aeb8747091c, type: 3}
       propertyPath: Effect
@@ -1085,9 +1105,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8030850923142500490, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: StartTimeBtwAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8030850923142500491, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
       propertyPath: StartTimeBtwBlock
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986384, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986387, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986387, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986387, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986387, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986387, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850923567986387, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850924510884978, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8030850924510884979, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
       propertyPath: m_Name
@@ -1149,5 +1205,17 @@ PrefabInstance:
       propertyPath: StaminaBar
       value: 
       objectReference: {fileID: 340235689}
+    - target: {fileID: 8030850924510884983, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: PlayerObj
+      value: 
+      objectReference: {fileID: 397098023}
+    - target: {fileID: 8030850924510884985, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030850924510884985, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72e8f3eae13ff0247b0121cb328072f1, type: 3}
