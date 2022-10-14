@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyLogic : MonoBehaviour
 {
     private GameObject player;
-    private bool isDeteced;
+    public bool isDeteced;
     public float Speed;
     public Enemy Enemy;
     public float Hp;
@@ -22,6 +22,8 @@ public class EnemyLogic : MonoBehaviour
     public Animator WeaponAnim;
     private float staminaCD;
     public GameObject Effect;
+    public float AttackCD;
+    public bool IsPlayerOnTrigger = false;
     private void Awake() 
     {
         enemyPos = this.gameObject.transform.position.x;
@@ -49,11 +51,6 @@ public class EnemyLogic : MonoBehaviour
             Destroy(this.gameObject);
         }
         staminaCD -= Time.deltaTime;
-    }
-
-    public void Move()
-    {
-        
     }
 
     public void TriggerAttack()
@@ -114,7 +111,6 @@ public class EnemyLogic : MonoBehaviour
         Effect.SetActive(true);
         Effect.GetComponent<SpriteRenderer>().color = _color;
     }
-
 
     public void BLock()
     {
@@ -223,9 +219,12 @@ public class EnemyLogic : MonoBehaviour
         readyAttack = false;
         Enemy.State.AttackType = Enemy.AvailableAttacks[Random.Range(0, Enemy.AvailableAttacks.Count)];
 		yield return new WaitForSeconds(1f);
-        PlayerCont.Player.RegenCD = 10f;
-        AnimAttackCont();
-        yield return new WaitForSeconds(1f);
+        if (IsPlayerOnTrigger)
+        {
+            PlayerCont.Player.RegenCD = 10f;
+            AnimAttackCont();
+        }
+        yield return new WaitForSeconds(AttackCD);
         readyAttack = true;
     }
 }

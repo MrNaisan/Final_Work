@@ -10,18 +10,20 @@ public class AttackRengeScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.TryGetComponent<Player>(out Player player))
+        if (other.TryGetComponent<PlayerCollider>(out _))
         {
             Logic.DetectedPlayerFalse();
+            Logic.IsPlayerOnTrigger = true;
             updateCor = StartCoroutine(UpdateTrig());
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if (other.TryGetComponent<Player>(out Player player))
+        if (other.TryGetComponent<PlayerCollider>(out _))
         {
             StopCoroutine(updateCor);
+            Logic.IsPlayerOnTrigger = false;
             Logic.DetectedPlayerTrue(other.gameObject);
         }
     }
