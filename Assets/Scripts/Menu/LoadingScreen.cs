@@ -9,7 +9,6 @@ public class LoadingScreen : MonoBehaviour
     public string loadLevel;
 
     public GameObject loadingScreen;
-
     public Slider bar;
 
     public void Load ()
@@ -21,6 +20,7 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator LoadAsync()
     {
+        yield return new WaitForSeconds(1f);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(loadLevel);
 
         asyncLoad.allowSceneActivation = false;
@@ -28,13 +28,13 @@ public class LoadingScreen : MonoBehaviour
         while(!asyncLoad.isDone)
         {
             bar.value = asyncLoad.progress;
-
             if(asyncLoad.progress >= .9f && !asyncLoad.allowSceneActivation)
             {
-                if(Input.anyKeyDown)
-                {
-                    asyncLoad.allowSceneActivation = true;
-                }
+                yield return new WaitForSeconds(0.5f);
+                bar.value = 1f;
+                yield return new WaitForSeconds(0.5f);
+                asyncLoad.allowSceneActivation = true;
+                
             }
 
             yield return null;

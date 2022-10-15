@@ -690,7 +690,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 468923533}
-  - component: {fileID: 468923534}
   - component: {fileID: 468923535}
   m_Layer: 5
   m_Name: MainMenu
@@ -722,18 +721,6 @@ RectTransform:
   m_AnchoredPosition: {x: 179, y: -16}
   m_SizeDelta: {x: 279.5574, y: 300.1136}
   m_Pivot: {x: 0.5000014, y: 0.5000005}
---- !u!114 &468923534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468923532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf3c09105a88f6340aa810a234a92a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &468923535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,8 +768,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 393.00003, y: 171.50006}
-  m_SizeDelta: {x: 786, y: 343}
+  m_AnchoredPosition: {x: 441.8, y: 200.60013}
+  m_SizeDelta: {x: 883.6, y: 401.2}
   m_Pivot: {x: 0.5, y: 0.5000004}
 --- !u!114 &517313438
 MonoBehaviour:
@@ -1338,9 +1325,7 @@ GameObject:
   - component: {fileID: 776877204}
   - component: {fileID: 776877203}
   - component: {fileID: 776877202}
-  - component: {fileID: 776877207}
   - component: {fileID: 776877206}
-  - component: {fileID: 776877208}
   - component: {fileID: 776877210}
   - component: {fileID: 776877211}
   m_Layer: 5
@@ -1531,30 +1516,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &776877207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776877201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9e4dd81f64f0d440af7e85738be685b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &776877208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776877201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7abd1d27cc303454295d715fface9acf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &776877210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,7 +1761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -107}
+  m_AnchoredPosition: {x: 0, y: -107}
   m_SizeDelta: {x: 414.01, y: 37.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1130232838
@@ -1830,7 +1791,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
