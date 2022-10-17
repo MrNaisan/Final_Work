@@ -12,8 +12,6 @@ public class MainMenu : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("Zachuneno");
-
         Application.Quit();
     }
 }
