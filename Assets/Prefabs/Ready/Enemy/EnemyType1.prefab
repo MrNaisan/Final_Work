@@ -1015,6 +1015,7 @@ GameObject:
   - component: {fileID: 2371656845674420772}
   - component: {fileID: 2371656845674420775}
   - component: {fileID: 2371656845674420774}
+  - component: {fileID: -3918775479659821709}
   m_Layer: 3
   m_Name: EnemyType1
   m_TagString: Untagged
@@ -1056,6 +1057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6573846233774e4182f579823df0f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Drop: {fileID: -3918775479659821709}
   isDeteced: 0
   Speed: 2
   Hp: 5
@@ -1152,6 +1154,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-3918775479659821709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371656845674420829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95cc2e385f1fe2245a8e5dcaa2291e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: {fileID: 459103323381546225, guid: 5d849a52c90ec1e4db995d4d595cc5c7, type: 3}
+  Stamina: {fileID: 5182977875109922451, guid: 7099ee0deb7c19546b0ffe7fb7b126d4, type: 3}
 --- !u!1 &2371656845724800486
 GameObject:
   m_ObjectHideFlags: 0

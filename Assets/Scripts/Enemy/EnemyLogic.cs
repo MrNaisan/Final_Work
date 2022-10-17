@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyLogic : MonoBehaviour
 {
     private GameObject player;
+    public BotleDrop Drop;
     public bool isDeteced;
     public float Speed;
     public Enemy Enemy;
@@ -48,6 +49,7 @@ public class EnemyLogic : MonoBehaviour
             MoveToPlayer();
         if (Enemy.State.Hp <= 0)
         {
+            Drop.BotleSpawn(this.transform);
             Destroy(this.gameObject);
         }
         staminaCD -= Time.deltaTime;
