@@ -10,7 +10,7 @@ public class RoomsGenerator : MonoBehaviour
     private IEnumerator Generate()
     {
         Graph graph = new Graph();
-        var infos = graph.Generate1(30);
+        var infos = graph.Generate1(3);
 
         foreach (var pos in infos.Keys)
         {

@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
         StartCoroutine(StaminaRegen());
         maxHp = PlayerCont.Player.State.Hp;
         maxStamina = PlayerCont.Player.State.Stamina;
-        Speed = PlayerObj.GetComponent<Player>().State.Speed;
+        Speed = PlayerCont.Player.State.Speed;
     }
     private void Update()   
     {

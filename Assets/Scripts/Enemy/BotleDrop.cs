@@ -9,7 +9,7 @@ public class BotleDrop : MonoBehaviour
 
     public void BotleSpawn(Transform enemy)
     {
-        var choose = Random.Range(1, 10);
+        var choose = Random.Range(1, 11);
         if (choose == 3)
             Instantiate(Hp, new Vector2(enemy.position.x, enemy.position.y), Quaternion.identity);
         if (choose == 7)

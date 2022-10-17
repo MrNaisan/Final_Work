@@ -6,10 +6,7 @@ public class Stamina : MonoBehaviour
 {
     public void RegenStamina()
     {
-        if (PlayerCont.Player.State.Stamina <= 7)
-            PlayerCont.Player.State.Stamina += 3;
-        else
-            PlayerCont.Player.State.Stamina = 10;
+        PlayerCont.Player.State.Stamina = Mathf.Clamp(PlayerCont.Player.State.Stamina+3, 1, 10);
         Destroy(this.gameObject);
     }
 }

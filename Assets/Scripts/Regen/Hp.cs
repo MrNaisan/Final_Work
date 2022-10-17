@@ -6,10 +6,7 @@ public class Hp : MonoBehaviour
 {
     public void RegenHp()
     {
-        if (PlayerCont.Player.State.Hp <= 7)
-            PlayerCont.Player.State.Hp += 3;
-        else
-            PlayerCont.Player.State.Hp = 10;
+        PlayerCont.Player.State.Hp = Mathf.Clamp(PlayerCont.Player.State.Hp+3, 1, 10);
         Destroy(this.gameObject);
     }
 }
